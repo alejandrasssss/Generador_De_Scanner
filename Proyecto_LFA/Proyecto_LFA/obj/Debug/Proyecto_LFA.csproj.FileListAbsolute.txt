@@ -4,10 +4,16 @@ C:\Users\derly\source\repos\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.pdb
 C:\Users\derly\source\repos\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.csprojAssemblyReference.cache
 C:\Users\derly\source\repos\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.exe
 C:\Users\derly\source\repos\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.pdb
-C:\Users\BRANDON\Desktop\primer ciclo 2020\Lenguajes\proyecto\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.exe.config
-C:\Users\BRANDON\Desktop\primer ciclo 2020\Lenguajes\proyecto\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.exe
-C:\Users\BRANDON\Desktop\primer ciclo 2020\Lenguajes\proyecto\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.pdb
-C:\Users\BRANDON\Desktop\primer ciclo 2020\Lenguajes\proyecto\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.csprojAssemblyReference.cache
-C:\Users\BRANDON\Desktop\primer ciclo 2020\Lenguajes\proyecto\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.csproj.CoreCompileInputs.cache
-C:\Users\BRANDON\Desktop\primer ciclo 2020\Lenguajes\proyecto\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.exe
-C:\Users\BRANDON\Desktop\primer ciclo 2020\Lenguajes\proyecto\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.pdb
+C:\Users\derly\Desktop\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.exe.config
+C:\Users\derly\Desktop\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.exe
+C:\Users\derly\Desktop\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.pdb
+C:\Users\derly\Desktop\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.csprojAssemblyReference.cache
+C:\Users\derly\Desktop\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.exe
+C:\Users\derly\Desktop\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.pdb
+C:\Users\BRANDON\Desktop\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.exe.config
+C:\Users\BRANDON\Desktop\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.exe
+C:\Users\BRANDON\Desktop\Proyecto_LFA\Proyecto_LFA\bin\Debug\Proyecto_LFA.pdb
+C:\Users\BRANDON\Desktop\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.csprojAssemblyReference.cache
+C:\Users\BRANDON\Desktop\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.csproj.CoreCompileInputs.cache
+C:\Users\BRANDON\Desktop\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.exe
+C:\Users\BRANDON\Desktop\Proyecto_LFA\Proyecto_LFA\obj\Debug\Proyecto_LFA.pdb

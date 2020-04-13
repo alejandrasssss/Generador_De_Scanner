@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Proyecto_LFA
 {
-    class Logica
+    class Lectura
     {
         //Elimina espacios inecesarios
         public static string limpiarLinea(string txt)
@@ -36,47 +36,31 @@ namespace Proyecto_LFA
             }
             else
             {
-                set = limpiarLinea(set.Substring(caracterNum));
-                caracterNum = 0;
-                conteo = 0;
-                if (set.Length == 0 && set[caracterNum] != '=')
+                if (Arbol.sets.Contains(set.Substring(0, caracterNum)))
                 {
                     Console.WriteLine("ERROR " + numLinea + " LINEA");
-                    return "0";
                 }
                 else
                 {
-                    set = limpiarLinea(set.Substring(1));
-                    while (set.Length != 0)
+                    Arbol.sets.Add(set.Substring(0, caracterNum));
+                    set = limpiarLinea(set.Substring(caracterNum));
+                    caracterNum = 0;
+                    conteo = 0;
+                    if (set.Length == 0 && set[caracterNum] != '=')
                     {
-                        if (conteo == 0)
+                        Console.WriteLine("ERROR " + numLinea + " LINEA");
+                        return "0";
+                    }
+                    else
+                    {
+                        set = limpiarLinea(set.Substring(1));
+                        while (set.Length != 0)
                         {
-                            if (set.Length >= 1 && set[0] == '\'')
+                            if (conteo == 0)
                             {
-                                set = set.Substring(1);
-
-                                if (set.Length >= 1 && set[0] > 31 && set[0] < 256)
+                                if (set.Length >= 1 && set[0] == '\'')
                                 {
                                     set = set.Substring(1);
-                                    if (set.Length >= 1 && set[0] == '\'')
-                                    {
-                                        set = set.Substring(1);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("ERROR " + numLinea + " LINEA");
-                                        return "0";
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("ERROR " + numLinea + " LINEA");
-                                    return "0";
-                                }
-
-                                if (set.Length >= 3 && set.Substring(0, 3) == "..'")
-                                {
-                                    set = set.Substring(3);
 
                                     if (set.Length >= 1 && set[0] > 31 && set[0] < 256)
                                     {
@@ -96,87 +80,116 @@ namespace Proyecto_LFA
                                         Console.WriteLine("ERROR " + numLinea + " LINEA");
                                         return "0";
                                     }
-                                }
 
-                                conteo = 1;
-                            }
-                            else if (set.Length >= 3 && set.Substring(0, 3) == "CHR")
-                            {
-                                set = set.Substring(3);
-                                if (set.Length >= 1 && set[0] == '(')
-                                {
-                                    set = set.Substring(1);
-                                    while (set.Length > caracterNum && set.Length != 0)
+                                    if (set.Length >= 3 && set.Substring(0, 3) == "..'")
                                     {
-                                        if (char.IsDigit(set[caracterNum]))
-                                        {
-                                            caracterNum++;
-                                        }
-                                        else
-                                        {
-                                            break;
-                                        }
-                                    }
-                                    if (caracterNum == 0)
-                                    {
-                                        Console.WriteLine("ERROR: " + numLinea);
-                                        return "0";
-                                    }
-                                    else
-                                    {
-                                        set = set.Substring(caracterNum);
-                                        caracterNum = 0;
-                                        if (set.Length >= 1 && set[0] == ')')
+                                        set = set.Substring(3);
+
+                                        if (set.Length >= 1 && set[0] > 31 && set[0] < 256)
                                         {
                                             set = set.Substring(1);
-                                            conteo = 1;
+                                            if (set.Length >= 1 && set[0] == '\'')
+                                            {
+                                                set = set.Substring(1);
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                                return "0";
+                                            }
                                         }
                                         else
                                         {
-                                            Console.WriteLine("ERROR: " + numLinea);
+                                            Console.WriteLine("ERROR " + numLinea + " LINEA");
                                             return "0";
                                         }
                                     }
 
-                                    if (set.Length >= 2 && set.Substring(0, 2) == "..")
+                                    conteo = 1;
+                                }
+                                else if (set.Length >= 3 && set.Substring(0, 3) == "CHR")
+                                {
+                                    set = set.Substring(3);
+                                    if (set.Length >= 1 && set[0] == '(')
                                     {
-                                        set = set.Substring(2);
-                                        if (set.Length >= 3 && set.Substring(0, 3) == "CHR")
+                                        set = set.Substring(1);
+                                        while (set.Length > caracterNum && set.Length != 0)
                                         {
-                                            set = set.Substring(3);
-                                            if (set.Length >= 1 && set[0] == '(')
+                                            if (char.IsDigit(set[caracterNum]))
+                                            {
+                                                caracterNum++;
+                                            }
+                                            else
+                                            {
+                                                break;
+                                            }
+                                        }
+                                        if (caracterNum == 0)
+                                        {
+                                            Console.WriteLine("ERROR: " + numLinea);
+                                            return "0";
+                                        }
+                                        else
+                                        {
+                                            set = set.Substring(caracterNum);
+                                            caracterNum = 0;
+                                            if (set.Length >= 1 && set[0] == ')')
                                             {
                                                 set = set.Substring(1);
-                                                caracterNum = 0;
-                                                while (set.Length != 0)
+                                                conteo = 1;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("ERROR: " + numLinea);
+                                                return "0";
+                                            }
+                                        }
+
+                                        if (set.Length >= 2 && set.Substring(0, 2) == "..")
+                                        {
+                                            set = set.Substring(2);
+                                            if (set.Length >= 3 && set.Substring(0, 3) == "CHR")
+                                            {
+                                                set = set.Substring(3);
+                                                if (set.Length >= 1 && set[0] == '(')
                                                 {
-                                                    if (set.Length > caracterNum && char.IsDigit(set[caracterNum]))
+                                                    set = set.Substring(1);
+                                                    caracterNum = 0;
+                                                    while (set.Length != 0)
                                                     {
-                                                        caracterNum++;
+                                                        if (set.Length > caracterNum && char.IsDigit(set[caracterNum]))
+                                                        {
+                                                            caracterNum++;
+                                                        }
+                                                        else
+                                                        {
+                                                            break;
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        break;
-                                                    }
-                                                }
-                                                if (caracterNum == 0)
-                                                {
-                                                    Console.WriteLine("ERROR " + numLinea + " LINEA");
-                                                    return "0";
-                                                }
-                                                else
-                                                {
-                                                    set = set.Substring(caracterNum);
-                                                    if (set.Length >= 1 && set[0] == ')')
-                                                    {
-                                                        set = limpiarLinea(set.Substring(1));
-                                                        conteo = 1;
-                                                    }
-                                                    else
+                                                    if (caracterNum == 0)
                                                     {
                                                         Console.WriteLine("ERROR " + numLinea + " LINEA");
                                                         return "0";
                                                     }
+                                                    else
+                                                    {
+                                                        set = set.Substring(caracterNum);
+                                                        if (set.Length >= 1 && set[0] == ')')
+                                                        {
+                                                            set = limpiarLinea(set.Substring(1));
+                                                            conteo = 1;
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                                            return "0";
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                                    return "0";
                                                 }
                                             }
                                             else
@@ -205,28 +218,23 @@ namespace Proyecto_LFA
                             }
                             else
                             {
-                                Console.WriteLine("ERROR " + numLinea + " LINEA");
-                                return "0";
+                                if (set.Length >= 2 && set[0] == '+')
+                                {
+                                    set = limpiarLinea(set.Substring(1));
+                                    conteo = 0;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                    return "0";
+                                }
                             }
                         }
-                        else
+                        if (conteo == 0)
                         {
-                            if (set.Length >= 2 && set[0] == '+')
-                            {
-                                set = limpiarLinea(set.Substring(1));
-                                conteo = 0;
-                            }
-                            else
-                            {
-                                Console.WriteLine("ERROR " + numLinea + " LINEA");
-                                return "0";
-                            }
+                            Console.WriteLine("ERROR " + numLinea + " LINEA");
+                            return "0";
                         }
-                    }
-                    if (conteo == 0)
-                    {
-                        Console.WriteLine("ERROR " + numLinea + " LINEA");
-                        return "0";
                     }
                 }
             }
@@ -279,6 +287,7 @@ namespace Proyecto_LFA
                         {
                             token = limpiarLinea(token.Substring(1));
 
+
                             while (token.Length != 0)
                             {
                                 if (token.Length >= 1 && token[0] == '{')
@@ -305,11 +314,13 @@ namespace Proyecto_LFA
                                 }
                                 else if (conteo == 1 && token.Length >= 1 && (token[0] == '+' || token[0] == '*' || token[0] == '?'))
                                 {
+                                    Arbol.ExpresionRegular = Arbol.ExpresionRegular.TrimEnd('.') + token.Substring(0, 1) + ".";
                                     token = limpiarLinea(token.Substring(1));
                                     conteo = 2;
                                 }
                                 else if ((conteo == 1 || conteo == 2 )&& token.Length >= 1 && token[0] == '|')
                                 {
+                                    Arbol.ExpresionRegular = Arbol.ExpresionRegular.TrimEnd('.') + token.Substring(0, 1);
                                     token = limpiarLinea(token.Substring(1));
                                     if (token.Length >= 1)
                                     {
@@ -334,18 +345,28 @@ namespace Proyecto_LFA
                                             }
                                             else
                                             {
+                                                if (!Arbol.sets.Contains(token.Substring(0, caracterNum)))
+                                                {
+                                                    Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                                    return "0";
+                                                }
+                                                Arbol.ExpresionRegular = Arbol.ExpresionRegular + token.Substring(0, caracterNum) + ".";
                                                 token = limpiarLinea(token.Substring(caracterNum));
                                                 conteo = 1;
                                             }
                                         }
                                         else if (token[0] == '\'')
                                         {
+                                            string actual = token.Substring(0, 1);
                                             token = token.Substring(1);
                                             if (token.Length >= 1 && token[0] > 31 && token[0] < 256)
                                             {
+                                                actual += token.Substring(0, 1);
                                                 token = token.Substring(1);
                                                 if (token.Length >= 1 && token[0] == '\'')
                                                 {
+                                                    actual += token.Substring(0, 1);
+                                                    Arbol.ExpresionRegular = Arbol.ExpresionRegular + actual + ".";
                                                     token = limpiarLinea(token.Substring(1));
                                                     conteo = 1;
                                                 }
@@ -371,6 +392,7 @@ namespace Proyecto_LFA
                                 }
                                 else if (token.Length >= 1 && token[0] == '(')
                                 {
+                                    Arbol.ExpresionRegular = Arbol.ExpresionRegular + token.Substring(0, 1);
                                     token = limpiarLinea(token.Substring(1));
                                     conteo = 0;
                                     bool termino = false;
@@ -378,6 +400,7 @@ namespace Proyecto_LFA
                                     {
                                         if ((conteo == 1 || conteo == 2) && token.Length >= 1 && token[0] == ')')
                                         {
+                                            Arbol.ExpresionRegular = Arbol.ExpresionRegular.TrimEnd('.') + token.Substring(0, 1) + ".";
                                             token = limpiarLinea(token.Substring(1));
                                             conteo = 1;
                                             termino = true;
@@ -385,11 +408,13 @@ namespace Proyecto_LFA
                                         }
                                         else if (conteo == 1 && token.Length >= 1 && (token[0] == '+' || token[0] == '*' || token[0] == '?'))
                                         {
+                                            Arbol.ExpresionRegular = Arbol.ExpresionRegular.TrimEnd('.') + token.Substring(0, 1) + ".";
                                             token = limpiarLinea(token.Substring(1));
                                             conteo = 2;
                                         }
                                         else if ((conteo == 1 || conteo == 2) && token.Length >= 1 && token[0] == '|')
                                         {
+                                            Arbol.ExpresionRegular = Arbol.ExpresionRegular.TrimEnd('.') + token.Substring(0, 1);
                                             token = limpiarLinea(token.Substring(1));
                                             if (token.Length >= 1)
                                             {
@@ -414,18 +439,28 @@ namespace Proyecto_LFA
                                                     }
                                                     else
                                                     {
+                                                        if (!Arbol.sets.Contains(token.Substring(0, caracterNum)))
+                                                        {
+                                                            Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                                            return "0";
+                                                        }
+                                                        Arbol.ExpresionRegular = Arbol.ExpresionRegular + token.Substring(0, caracterNum) + ".";
                                                         token = limpiarLinea(token.Substring(caracterNum));
                                                         conteo = 1;
                                                     }
                                                 }
                                                 else if (token[0] == '\'')
                                                 {
+                                                    var actual = token.Substring(0, 1);
                                                     token = token.Substring(1);
                                                     if (token.Length >= 1 && token[0] > 31 && token[0] < 256)
                                                     {
+                                                        actual += token.Substring(0, 1);
                                                         token = token.Substring(1);
                                                         if (token.Length >= 1 && token[0] == '\'')
                                                         {
+                                                            actual += token.Substring(0, 1);
+                                                            Arbol.ExpresionRegular = Arbol.ExpresionRegular + actual + ".";
                                                             token = limpiarLinea(token.Substring(1));
                                                             conteo = 1;
                                                         }
@@ -473,18 +508,28 @@ namespace Proyecto_LFA
                                                     }
                                                     else
                                                     {
+                                                        if (!Arbol.sets.Contains(token.Substring(0, caracterNum)))
+                                                        {
+                                                            Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                                            return "0";
+                                                        }
+                                                        Arbol.ExpresionRegular = Arbol.ExpresionRegular + token.Substring(0, caracterNum) + ".";
                                                         token = limpiarLinea(token.Substring(caracterNum));
                                                         conteo = 1;
                                                     }
                                                 }
                                                 else if (token[0] == '\'')
                                                 {
+                                                    var actual = token.Substring(0, 1);
                                                     token = token.Substring(1);
                                                     if (token.Length >= 1 && token[0] > 31 && token[0] < 256)
                                                     {
+                                                        actual += token.Substring(0, 1);
                                                         token = token.Substring(1);
                                                         if (token.Length >= 1 && token[0] == '\'')
                                                         {
+                                                            actual += token.Substring(0, 1);
+                                                            Arbol.ExpresionRegular = Arbol.ExpresionRegular + actual + ".";
                                                             token = limpiarLinea(token.Substring(1));
                                                             conteo = 1;
                                                         }
@@ -539,18 +584,28 @@ namespace Proyecto_LFA
                                             }
                                             else
                                             {
+                                                if (!Arbol.sets.Contains(token.Substring(0, caracterNum)))
+                                                {
+                                                    Console.WriteLine("ERROR " + numLinea + " LINEA");
+                                                    return "0";
+                                                }
+                                                Arbol.ExpresionRegular = Arbol.ExpresionRegular + token.Substring(0, caracterNum) + ".";
                                                 token = limpiarLinea(token.Substring(caracterNum));
                                                 conteo = 1;
                                             }
                                         }
                                         else if (token[0] == '\'')
                                         {
+                                            var actual = token.Substring(0, 1);
                                             token = token.Substring(1);
                                             if (token.Length >= 1 && token[0] > 31 && token[0] < 256)
                                             {
+                                                actual += token.Substring(0, 1);
                                                 token = token.Substring(1);
                                                 if (token.Length >= 1 && token[0] == '\'')
                                                 {
+                                                    actual += token.Substring(0, 1);
+                                                    Arbol.ExpresionRegular = Arbol.ExpresionRegular + actual + ".";
                                                     token = limpiarLinea(token.Substring(1));
                                                     conteo = 1;
                                                 }

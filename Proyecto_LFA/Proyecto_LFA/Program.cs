@@ -9,27 +9,21 @@ namespace Proyecto_LFA
 {
     class Program
     {
-        /*
-         * Alejandra Samayoa
-         * carnet 1278817
-         * proyecto de Lenguajes Formales y Automatas
-         * Primera Fase
-         */
         static void Main(string[] args)
         {
-            Console.WriteLine("Arrastre el archivo, para poder determinar el error");
-
-            //strings
             string lineaActual = "";
-            //ints
+
             int numLinea = 0;
             int conteo = 0;
-            //bools
+
             bool sets = false;
             bool tokens = false;
             bool actions = false;
             bool error = false;
+
             bool errores = false;
+
+            Arbol.ReiniciarArbol();
 
             using (StreamReader archivo = new StreamReader(Console.ReadLine().Trim('"')))
             {
@@ -37,7 +31,7 @@ namespace Proyecto_LFA
                 while ((lineaActual = archivo.ReadLine()) != null && !errores)
                 {
                     numLinea++;
-                    lineaActual = Logica.limpiarLinea(lineaActual);
+                    lineaActual = Lectura.limpiarLinea(lineaActual);
                     if (lineaActual != "")
                     {
                         if (lineaActual == "SETS")
@@ -59,10 +53,10 @@ namespace Proyecto_LFA
                 }
 
                 //Evalua que sets este escrito correctamente si viene en el archivo
-                while ((lineaActual = archivo.ReadLine()) != null && sets && !errores)
+                while (sets && (lineaActual = archivo.ReadLine()) != null && !errores)
                 {
                     numLinea++;
-                    lineaActual = Logica.limpiarLinea(lineaActual);
+                    lineaActual = Lectura.limpiarLinea(lineaActual);
                     if (lineaActual != "")
                     {
                         if (lineaActual == "TOKENS")
@@ -70,7 +64,7 @@ namespace Proyecto_LFA
                             tokens = true;
                             break;
                         }
-                        else if (Logica.sets(lineaActual, numLinea) == "")
+                        else if (Lectura.sets(lineaActual, numLinea) == "")
                         {
                             conteo++;
                         }
@@ -102,7 +96,7 @@ namespace Proyecto_LFA
                             while ((lineaActual = archivo.ReadLine()) != null && !errores)
                             {
                                 numLinea++;
-                                lineaActual = Logica.limpiarLinea(lineaActual);
+                                lineaActual = Lectura.limpiarLinea(lineaActual);
                                 if (lineaActual != "")
                                 {
                                     if (lineaActual == "ACTIONS")
@@ -110,9 +104,10 @@ namespace Proyecto_LFA
                                         actions = true;
                                         break;
                                     }
-                                    else if (Logica.tokens(lineaActual, numLinea) == "")
+                                    else if (Lectura.tokens(lineaActual, numLinea) == "")
                                     {
                                         conteo++;
+                                        Arbol.ExpresionRegular = Arbol.ExpresionRegular.TrimEnd('.') + '|';
                                     }
                                     else
                                     {
@@ -130,13 +125,14 @@ namespace Proyecto_LFA
                                 }
                                 else
                                 {
+                                    Arbol.ExpresionRegular = "(" + Arbol.ExpresionRegular.TrimEnd('|') + ").$";
                                     bool reservadas = false;
                                     string aux = "";
                                     //Evalua si actions viene correcto en el archivo
                                     while ((lineaActual = archivo.ReadLine()) != null && !errores)
                                     {
                                         numLinea++;
-                                        lineaActual = Logica.limpiarLinea(lineaActual);
+                                        lineaActual = Lectura.limpiarLinea(lineaActual);
                                         if (lineaActual != "")
                                         {
                                             if (lineaActual.Length >= 5 && lineaActual.Substring(0, 5) == "ERROR")
@@ -163,11 +159,11 @@ namespace Proyecto_LFA
                                                 if (lineaActual.Length >= (caracterNum + 2) && lineaActual.Substring(0, caracterNum + 2) == "RESERVADAS()")
                                                 {
                                                     reservadas = true;
-                                                    lineaActual = Logica.limpiarLinea(lineaActual.Substring(caracterNum + 2));
+                                                    lineaActual = Lectura.limpiarLinea(lineaActual.Substring(caracterNum + 2));
                                                 }
                                                 else if (lineaActual.Length >= (caracterNum + 2) && lineaActual.Substring((caracterNum), 2) == "()")
                                                 {
-                                                    lineaActual = Logica.limpiarLinea(lineaActual.Substring(caracterNum + 2));
+                                                    lineaActual = Lectura.limpiarLinea(lineaActual.Substring(caracterNum + 2));
                                                 }
                                                 else
                                                 {
@@ -184,7 +180,7 @@ namespace Proyecto_LFA
                                                     while ((lineaActual = archivo.ReadLine()) != null && !errores)
                                                     {
                                                         numLinea++;
-                                                        lineaActual = Logica.limpiarLinea(lineaActual);
+                                                        lineaActual = Lectura.limpiarLinea(lineaActual);
                                                         if (lineaActual != "")
                                                         {
                                                             if (lineaActual.Length >= 1 && lineaActual[0] == '{')
@@ -202,14 +198,14 @@ namespace Proyecto_LFA
                                                     while ((lineaActual = archivo.ReadLine()) != null && !errores)
                                                     {
                                                         numLinea++;
-                                                        lineaActual = Logica.limpiarLinea(lineaActual);
+                                                        lineaActual = Lectura.limpiarLinea(lineaActual);
                                                         if (lineaActual != "")
                                                         {
                                                             if (lineaActual == "}")
                                                             {
                                                                 break;
                                                             }
-                                                            else if (Logica.actions(lineaActual, numLinea) == "")
+                                                            else if (Lectura.actions(lineaActual, numLinea) == "")
                                                             {
                                                                 conteo++;
                                                             }
@@ -244,7 +240,7 @@ namespace Proyecto_LFA
                                         else
                                         {
                                             //Evalua si tokens viene correcto en el archivo
-                                            if (aux != "" && Logica.errors(lineaActual, numLinea) == "")
+                                            if (aux != "" && Lectura.errors(lineaActual, numLinea) == "")
                                             {
                                                 conteo++;
                                             }
@@ -257,10 +253,10 @@ namespace Proyecto_LFA
                                             while ((lineaActual = archivo.ReadLine()) != null && !errores)
                                             {
                                                 numLinea++;
-                                                lineaActual = Logica.limpiarLinea(lineaActual);
+                                                lineaActual = Lectura.limpiarLinea(lineaActual);
                                                 if (lineaActual != "")
                                                 {
-                                                    if (Logica.errors(lineaActual, numLinea) == "")
+                                                    if (Lectura.errors(lineaActual, numLinea) == "")
                                                     {
                                                         conteo++;
                                                     }
@@ -274,15 +270,20 @@ namespace Proyecto_LFA
                                             if (!errores)
                                             {
                                                 Console.WriteLine("CORRECTO");
+                                                Console.WriteLine("=====================================================================================");
+                                                Nodo arbol = Arbol.ShuntingYard();
+                                                Arbol.postOrden(arbol);
+                                                Console.WriteLine("=====================================================================================");
+                                                Arbol.MostrarFollow();
+                                                Console.WriteLine("=====================================================================================");
+                                                Arbol.Estados(arbol);
                                             }
                                         }
                                     }
                                 }
                             }
-
                         }
                     }
-
                 }
             }
             Console.ReadKey();
