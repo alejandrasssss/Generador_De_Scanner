@@ -9,8 +9,17 @@ namespace Proyecto_LFA
 {
     class Program
     {
+        /*
+         *Alejandra Samayoa
+         * carnet 1278817
+         * proyecto de lenguajes formales y automatas
+         * primera fase
+         */
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Arrastre el archivo");
+
             string lineaActual = "";
 
             int numLinea = 0;
